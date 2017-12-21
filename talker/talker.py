@@ -4,7 +4,11 @@ import rospy
 from std_msgs.msg import String
 
 def talker():
-	pub = rospy.Publisher('telemetry', String, queue_size=10)
+	if rospy.has_param('topic_name'):
+		topicname=rospy.get_param('topic_name')
+	else:
+		topicname='telemetry'
+	pub = rospy.Publisher(topicname, String, queue_size=10)
 	rospy.init_node('talker', anonymous=True)
 	rate = rospy.Rate(10)
 	while not rospy.is_shutdown():
