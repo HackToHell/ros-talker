@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 
 import rospy
+import os
 from std_msgs.msg import String
 
 def talker():
-	if rospy.has_param('topic_name'):
-		topicname=rospy.get_param('topic_name')
-	else:
-		topicname='telemetry'
+	topicname=os.getenv('topic_name','telemetry')
 	pub = rospy.Publisher(topicname, String, queue_size=10)
 	rospy.init_node('talker', anonymous=True)
 	rate = rospy.Rate(10)
